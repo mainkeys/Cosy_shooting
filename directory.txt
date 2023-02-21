@@ -1,0 +1,99 @@
+.
+|-- README.md
+|-- acapp
+|   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-38.pyc
+|   |   |-- settings.cpython-38.pyc
+|   |   |-- urls.cpython-38.pyc
+|   |   `-- wsgi.cpython-38.pyc
+|   |-- asgi.py
+|   |-- settings.py
+|   |-- urls.py
+|   `-- wsgi.py
+|-- db.sqlite3
+|-- directory.txt
+|-- game
+|   |-- __init__.py
+|   |-- __pycache__
+|   |   |-- __init__.cpython-38.pyc
+|   |   |-- admin.cpython-38.pyc
+|   |   |-- apps.cpython-38.pyc
+|   |   |-- urls.cpython-38.pyc
+|   |   `-- views.cpython-38.pyc
+|   |-- admin.py
+|   |-- apps.py
+|   |-- filenamep.txt
+|   |-- migrations
+|   |   |-- __init__.py
+|   |   `-- __pycache__
+|   |       `-- __init__.cpython-38.pyc
+|   |-- models
+|   |   |-- __init__.py
+|   |   `-- __pycache__
+|   |       `-- __init__.cpython-38.pyc
+|   |-- static
+|   |   |-- css
+|   |   |   `-- game.css
+|   |   |-- image
+|   |   |   |-- menu
+|   |   |   |   `-- background.gif
+|   |   |   |-- playground
+|   |   |   `-- settings
+|   |   `-- js
+|   |       |-- dist
+|   |       |   `-- game.js
+|   |       `-- src
+|   |           |-- menu
+|   |           |-- playground
+|   |           |-- settings
+|   |           `-- zbase.js
+|   |-- templates
+|   |   |-- menu
+|   |   |-- multiends
+|   |   |   `-- web.html
+|   |   |-- playground
+|   |   `-- settings
+|   |-- tests.py
+|   |-- urls
+|   |   |-- __init__.py
+|   |   |-- __pycache__
+|   |   |   |-- __init__.cpython-38.pyc
+|   |   |   `-- index.cpython-38.pyc
+|   |   |-- index.py
+|   |   |-- menu
+|   |   |   |-- __init__.py
+|   |   |   |-- __pycache__
+|   |   |   |   |-- __init__.cpython-38.pyc
+|   |   |   |   `-- index.cpython-38.pyc
+|   |   |   `-- index.py
+|   |   |-- playground
+|   |   |   |-- __init__.py
+|   |   |   |-- __pycache__
+|   |   |   |   |-- __init__.cpython-38.pyc
+|   |   |   |   `-- index.cpython-38.pyc
+|   |   |   `-- index.py
+|   |   `-- settings
+|   |       |-- __init__.py
+|   |       |-- __pycache__
+|   |       |   |-- __init__.cpython-38.pyc
+|   |       |   `-- index.cpython-38.pyc
+|   |       `-- index.py
+|   `-- views
+|       |-- __init__.py
+|       |-- __pycache__
+|       |   |-- __init__.cpython-38.pyc
+|       |   `-- index.cpython-38.pyc
+|       |-- filenamep.txt
+|       |-- index.py
+|       |-- menu
+|       |   `-- __init__.py
+|       |-- playground
+|       |   `-- __init__.py
+|       `-- settings
+|           `-- __init__.py
+|-- manage.py
+`-- scripts
+    `-- compress_game_js.sh
+
+39 directories, 57 files
