@@ -5,12 +5,12 @@
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
     </script>
     <link rel="stylesheet" href="{% static 'css/game.css' %}">
-    <script src="{% static 'js/dist/game.js' %}"></script>
 </head>
 
 <body style = "margin: 0">
     <div id="ac_game_123456789"></div>
-    <script>
+    <script type='module'>
+        import {AcGame} from "{% static 'js/dist/game.js' %}";
         $(document).ready(function(){
             let ac_game = new AcGame("ac_game_123456789");
         });
