@@ -1,5 +1,5 @@
 class FireBall extends BaseObject {
-    constructor(playground, player, x, y, radius, vx, vy, color, speed, move_length) {
+    constructor(playground, player, x, y, radius, vx, vy, color, speed, move_lengthi, damage) {
         super();
         this.playground = playground;
         this.player = player;
@@ -12,6 +12,7 @@ class FireBall extends BaseObject {
         this.color = color;
         this.speed = speed;
         this.move_length = move_length;
+        this.damage = damage;
         this.eps = 0.1;
     }
 
@@ -28,11 +29,32 @@ class FireBall extends BaseObject {
         this.y += this.vy * moved;
         this.move_length -= moved;
 
-
+        for(let i = 0; i < this.playground.players.length; i ++) {
+            let player = this.playground.players[i];
+            if (this.player !== player && is_collision(player)) {
+                this.attack(player);
+            }
+        }
 
         this.render();
     }
 
+    get_dist(x1, y1, x2, y2) {
+        let dx = x1  - x2;
+        let dy = y1 - y2;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+    is_collosion(player) {
+        let distance = this.get_dist(this.x, this.y, player.x, player.y);
+        if (distance < this.radius + player.radius)
+            return true;
+        return false;
+    }
+
+    attack(player) {
+        player.is_attacked;
+        this.destory();
+    }
 
     render() {
         this.ctx.beginPath();

@@ -64,7 +64,7 @@ class Player extends BaseObject {
         let color = "orange";
         let speed = this.playground.height * 0.5;
         let move_length = this.playground.height * 1;
-        new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length);
+        new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length, this.playground * 0.01 );
     }
 
     get_dist(x1, y1, x2, y2) {
@@ -78,6 +78,10 @@ class Player extends BaseObject {
         let angle = Math.atan2(ty - this.y, tx - this.x);
         this.vx = Math.cos(angle);
         this.vy = Math.sin(angle);
+    }
+    
+    is_attacked(0 {
+        
     }
 
     update() {
