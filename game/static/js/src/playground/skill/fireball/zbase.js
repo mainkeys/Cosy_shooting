@@ -31,7 +31,7 @@ class FireBall extends BaseObject {
 
         for(let i = 0; i < this.playground.players.length; i ++) {
             let player = this.playground.players[i];
-            if (this.player !== player && this.is_collision(player)) {
+            if (this.player.id !== player.id && this.is_collision(player)) {
                 this.attack(player);
             }
         }

@@ -158,7 +158,7 @@ class Particle extends BaseObject {
     }
 }
 class Player extends BaseObject {
-    constructor(playground, x, y , radius ,color, speed, is_me) {
+    constructor(playground, x, y , radius ,color, speed, is_me, id) {
         super();
         this.playground = playground;
         this.ctx = this.playground.game_map.ctx;
@@ -173,9 +173,12 @@ class Player extends BaseObject {
         this.radius = radius;
         this.color = color;
         this.speed = speed;
+        this.fireballSpeed = this.playground.height * 0.8;
         this.is_me = is_me;
+        this.id = id;
         this.eps = 0.1;
         this.friction = 0.9;
+        this.spend_time = 0;//游戏已过时间
         this.cur_skill = null;
     }
     start() {
@@ -225,9 +228,8 @@ class Player extends BaseObject {
         let angle = Math.atan2(ty-this.y, tx - this.x);
         let vx = Math.cos(angle), vy = Math.sin(angle);
         let color = "orange";
-        let speed = this.playground.height * 0.5;
         let move_length = this.playground.height * 1;
-        new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length, this.playground.height * 0.01 );
+        new FireBall(this.playground, this, x, y, radius, vx, vy, color,  this.fireballSpeed, move_length, this.playground.height * 0.01 );
     }
 
     get_dist(x1, y1, x2, y2) {
@@ -256,7 +258,8 @@ class Player extends BaseObject {
 
         }
         this.radius -= damage;
-        if (this.radius < 10) {
+        if (this.radius < 15) {
+            this.on_destroy();
             this.destroy();
             return false;
         }
@@ -270,6 +273,28 @@ class Player extends BaseObject {
     }
 
     update() {
+        this.spend_time += this.timedelta / 1000;
+
+        if (!this.is_me && this.spend_time > 5 && Math.random() < this.timedelta /3000 ) { //当游戏开始5s后，且隔5秒开始发射
+            let myId = this.id;
+            let players = this.playground.players;
+            let myIndex = players.indexOf(myId);
+            let enemies = this.playground.players;
+            if (myIndex !== -1){
+                enemies.splice(myIndex, 1);
+            }
+            let player =  enemies[Math.floor(Math.random() * enemies.length)];
+           // let tx = player.x + player.speed * this.vx * this.timedelta / 1000 * 0.8;
+           // let ty = player.y + player.speed * this.vy * this.timedelta / 1000 * 0.8;
+            let tx = this.x + (player.x + player.vx * player.speed - this.x) / this.fireballSpeed;//解方程算出目标地点
+
+            let ty = this.y + (player.y + player.vy * player.speed - this.y) / this.fireballSpeed;
+            if(player.id !== this.id){ //敌人存活且目标不是自己
+                console.log("target"+tx,ty);
+                this.shoot_fireball(tx, ty);
+            }
+
+        }
         if(this.damage_speed > 10) {
             this.vx = this.vy = 0;
             this.move_length = 0;
@@ -293,6 +318,15 @@ class Player extends BaseObject {
             }
         }
         this.render();
+    }
+
+    on_destroy() {
+        let idToDelete = this.id;
+        let indexToDelete = this.playground.players.findIndex(function(player) {
+            return player.id === idToDelete;//寻找需要删除的player的id的对应的下标
+        });
+        this.playground.players.splice(indexToDelete, 1);
+
     }
 
     render() {
@@ -335,7 +369,7 @@ class FireBall extends BaseObject {
 
         for(let i = 0; i < this.playground.players.length; i ++) {
             let player = this.playground.players[i];
-            if (this.player !== player && this.is_collision(player)) {
+            if (this.player.id !== player.id && this.is_collision(player)) {
                 this.attack(player);
             }
         }
@@ -379,11 +413,11 @@ class AcGamePlayground{
         this.height = this.$playground.height();
         this.game_map = new GameMap(this);
         this.players = [];
-        this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, "white", this.height * 0.15, true));
-        for(let i = 0; i < 5; i ++) {
-            this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, this.get_random_color(), this.height * 0.15, false));
+        this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, "white", this.height * 0.15, true, 0));
+        for(let i = 1; i <= 5; i ++) {
+            let color = this.get_random_color();
+            this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, color, this.height * 0.15, false, i));
         }
-            
         this.start();
 
     }
