@@ -34,12 +34,13 @@ class Player extends BaseObject {
 
     add_listening_events() {
         let outer = this;
+        const rect = outer.ctx.canvas.getBoundingClientRect();
         this.playground.game_map.$canvas.on("contextmenu", function() {
             return false;
         });
         this.playground.game_map.$canvas.mousedown(function(e) {
             if(e.which === 3) {
-                outer.move_to(outer.mouseX, outer.mouseY);
+                outer.move_to(outer.mouseX - rect.left, outer.mouseY - rect.top);
             }
             // else if (e.which === 1) {
             //     if (outer.cur_skill === "fireball" ) {
@@ -125,8 +126,8 @@ class Player extends BaseObject {
                 enemies.splice(myIndex, 1);
             }
             let player =  enemies[Math.floor(Math.random() * enemies.length)];
-           // let tx = player.x + player.speed * this.vx * this.timedelta / 1000 * 0.8;
-           // let ty = player.y + player.speed * this.vy * this.timedelta / 1000 * 0.8;
+            // let tx = player.x + player.speed * this.vx * this.timedelta / 1000 * 0.8;
+            // let ty = player.y + player.speed * this.vy * this.timedelta / 1000 * 0.8;
 
             let fvx = (player.x + player.vx * player.speed - this.x) / this.fireballSpeed;
             let fvy = (player.y + player.vy * player.speed - this.y) / this.fireballSpeed;
